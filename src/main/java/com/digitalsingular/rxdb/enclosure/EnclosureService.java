@@ -12,7 +12,7 @@ public class EnclosureService {
 	public Set<Enclosure> getByPlot(int plot) {
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<Set<Enclosure>> response = restTemplate.exchange(
-		  "http://localhost:8080/enclosure?plot=1",
+		  "http://localhost:8080/enclosures?plot=" + plot,
 		  HttpMethod.GET,
 		  null,
 		  new ParameterizedTypeReference<Set<Enclosure>>(){});
