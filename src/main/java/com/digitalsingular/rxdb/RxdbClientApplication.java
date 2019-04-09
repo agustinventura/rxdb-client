@@ -12,13 +12,13 @@ public class RxdbClientApplication {
 
 	private static Logger logger = LoggerFactory.getLogger(RxdbClientApplication.class);
 	
+	private static long startTime;
+	
 	public static void main(String[] args) throws InterruptedException {
 		EnclosureService enclosureService = new EnclosureService();
-		Flux<Enclosure> enclosures = enclosureService.getByPlot(90140);
-		long startTime = System.currentTimeMillis();
-		enclosures.subscribe(enclosure -> logger.info("Enclosure " + enclosure.getId()));
-		long endTime = System.currentTimeMillis();
-		logger.info("Total time " + (endTime - startTime));
+		Flux<Enclosure> enclosures = enclosureService.getByPlot(1);
+		startTime = System.currentTimeMillis();
+		enclosures.doOnComplete(() -> {logger.info("Total time " + (System.currentTimeMillis() - startTime));}).subscribe(enclosure -> logger.info("Enclosure " + enclosure.getId()));
 		Thread.sleep(30000L);
 	}
 
